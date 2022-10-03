@@ -28,6 +28,7 @@ function Content() {
     const newList = list;
     newList.splice(index, 1);
     setList([...newList]);
+    console.log(newList);
   }
 
   function handleEdit(index, e) {
@@ -92,7 +93,14 @@ function Content() {
                 className="btn"
                 onClick={() => {
                   setDone(!isDone);
-                  setCount(count + 1);
+                  setCount(count => {
+                    if(isDone){
+                      return count + 1
+                    }
+                    else{
+                      return count
+                    }
+                  })
                 }}
               >
                 Done
