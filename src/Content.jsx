@@ -1,4 +1,4 @@
-import Done from './Done'
+import Done from "./Done";
 import { useState, useEffect } from "react";
 
 function Content() {
@@ -8,15 +8,17 @@ function Content() {
   const [i, setIndex] = useState();
   const [count, setCount] = useState(0);
   const [isDone, setDone] = useState(false);
+  const inp = document.querySelector('.inp-add');
 
-  useEffect( () => {
-  }, [count])
+  useEffect(() => {}, [count]);
 
   function handleAdd() {
     setList((prev) => {
       if (job !== "") {
+        inp.value = ''
         return [...prev, job];
       } else {
+        inp.value = ''
         return [prev];
       }
     });
@@ -41,7 +43,7 @@ function Content() {
   return (
     <div>
       <Done count={count} />
-      {list.length === 0 && <p className="is-data">Không có công việc</p>}
+      {list.length === 0 && <p className="is-done">Không có công việc</p>}
       <div className="wrapper">
         <input
           type="text"
@@ -58,7 +60,10 @@ function Content() {
       <ul>
         {list.map((job, index) => {
           return (
-            <div key={index} className={isDone? 'list-jobs done' : "list-jobs"}>
+            <div
+              key={index}
+              className={isDone ? "list-jobs done" : "list-jobs"}
+            >
               <li>{job}</li>
               <button
                 className="btn btn-del"
@@ -84,10 +89,10 @@ function Content() {
                 </button>
               </div>
               <button
-                className='btn'
+                className="btn"
                 onClick={() => {
                   setDone(!isDone);
-                  setCount(count+1)
+                  setCount(count + 1);
                 }}
               >
                 Done
