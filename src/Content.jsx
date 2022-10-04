@@ -8,17 +8,18 @@ function Content() {
   const [i, setIndex] = useState();
   const [count, setCount] = useState(0);
   const [isDone, setDone] = useState(false);
-  const inp = document.querySelector(".inp-add");
+  const inp = document.querySelector('.inp-add');
 
   useEffect(() => {}, [count]);
+
 
   function handleAdd() {
     setList((prev) => {
       if (job !== "") {
-        inp.value = "";
+        inp.value = ''
         return [...prev, job];
       } else {
-        inp.value = "";
+        inp.value = ''
         return [prev];
       }
     });
@@ -93,13 +94,14 @@ function Content() {
                 className="btn"
                 onClick={() => {
                   setDone(!isDone);
-                  setCount((count) => {
-                    if (isDone) {
-                      return count + 1;
-                    } else {
-                      return count;
+                  setCount(count => {
+                    if(isDone){
+                      return count
                     }
-                  });
+                    else{
+                      return count  + 1
+                    }
+                  })
                 }}
               >
                 Done
