@@ -1,24 +1,22 @@
-import Done from "./Done";
 import { useState, useEffect } from "react";
+import List from "./List";
+// import Done from './Done'
 
 function Content() {
   const [list, setList] = useState([]);
   const [job, setJob] = useState("");
   const [show, setShow] = useState(false);
-  const [i, setIndex] = useState();
-  const [count, setCount] = useState(0);
-  const [isDone, setDone] = useState(false);
-  const inp = document.querySelector('.inp-add');
+  const inp = document.querySelector(".inp-add");
 
-  useEffect(() => {}, [count]);
+  useEffect(() => {}, [list]);
 
   function handleAdd() {
     setList((prev) => {
       if (job !== "") {
-        inp.value = ''
+        inp.value = "";
         return [...prev, job];
       } else {
-        inp.value = ''
+        inp.value = "";
         return [prev];
       }
     });
@@ -39,11 +37,9 @@ function Content() {
 
   function handleShow(index) {
     setShow(!show);
-    setIndex(index);
   }
   return (
     <div>
-      <Done count={count} />
       {list.length === 0 && <p className="is-done">Không có công việc</p>}
       <div className="wrapper">
         <input
@@ -58,57 +54,13 @@ function Content() {
         </button>
       </div>
 
-      <ul>
-        {list.map((job, index) => {
-          return (
-            <div
-              key={index}
-              className={isDone ? "list-jobs done" : "list-jobs"}
-            >
-              <li>{job}</li>
-              <button
-                className="btn btn-del"
-                onClick={() => handleDelete(index)}
-              >
-                Delete
-              </button>
-              <div>
-                {show && i === index && (
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    onInput={(e) => handleEdit(index, e)}
-                    className="inp-edit"
-                  />
-                )}
-                <button
-                  className="btn btn-edit"
-                  onClick={() => handleShow(index)}
-                >
-                  Edit
-                </button>
-              </div>
-              <button
-                className="btn"
-                onClick={() => {
-                  setDone(!isDone);
-                  setCount(count => {
-                    if(isDone){
-                      return count + 1
-                    }
-                    else{
-                      return count
-                    }
-                  })
-                }}
-              >
-                Done
-              </button>
-            </div>
-          );
-        })}
-      </ul>
+      <List
+        list={list}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        handleShow={handleShow}
+        show={show}
+      />
     </div>
   );
 }
